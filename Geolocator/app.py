@@ -11,7 +11,7 @@ def custom400(error):
 
 
 @app.route('/coordinates/<string:address>', methods=['GET'])
-def get_task(address):
+def get_coordinates(address):
     convert_service = AddressToCoordinateConverter()
     result = convert_service.convert_address_to_coordinates(address)
 

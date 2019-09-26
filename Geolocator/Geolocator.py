@@ -12,6 +12,7 @@ class CoordinateException(Exception):
 
 
 class Coordinate(object):
+    """Class to manage a set of coordinates"""
     latitude = None
     longitude = None
 
@@ -21,6 +22,7 @@ class Coordinate(object):
 
 
 class AddressToCoordinateConverter(object):
+    """Class to manage the calls to a coordinate service"""
 
     errors = []
 
@@ -48,6 +50,7 @@ class AddressToCoordinateConverter(object):
 
    
 class BaseCoordinatesService(object):
+    """Base class for services that call geolocator APIs"""
 
     def __init__(self):
         parser = SafeConfigParser()
@@ -60,7 +63,7 @@ class BaseCoordinatesService(object):
         """Call the coordinate service"""
         formatted_uri = self.url.format(
             api_id=self.api_id, api_key=self.api_key, address=address
-            )
+        )
 
         connection = urllib.urlopen(formatted_uri)
         try:
@@ -85,6 +88,7 @@ class BaseCoordinatesService(object):
    
 
 class GoogleCoordinatesService(BaseCoordinatesService):
+    """Class for calling the Google geolocator API"""
 
     service_type = 'google'
     url = "https://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false&key={api_key}"
@@ -113,6 +117,7 @@ class GoogleCoordinatesService(BaseCoordinatesService):
 
 
 class HereCoordinatesService(BaseCoordinatesService):
+    """Class for calling the Here geolocator API"""
 
     service_type = 'here'
     url = "https://geocoder.api.here.com/6.2/geocode.json?app_id={api_id}&app_code={api_key}&searchtext={address}"

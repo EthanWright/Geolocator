@@ -12,15 +12,16 @@ def custom400(error):
 
 @app.route('/coordinates/<string:address>', methods=['GET'])
 def get_coordinates(address):
+    """API for calling geolocator service to retrive the GPS coordinates for an address"""
     convert_service = AddressToCoordinateConverter()
     result = convert_service.convert_address_to_coordinates(address)
-
-    if not result.get('coordinates'):
+    coordinates = result.get('coordinates')
+    if not coordinates:
         abort(400, result.get('errors'))
 
     return jsonify({
-        'latitude': result.get('coordinates').latitude,
-        'longitude': result.get('coordinates').longitude
+        'latitude': coordinates.latitude,
+        'longitude': coordinates.longitude
     })
 
 

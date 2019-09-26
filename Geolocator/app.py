@@ -1,6 +1,6 @@
 #!flask/bin/python
 from flask import Flask, jsonify, request, abort
-from Geolocator import AddressToCoordinateConverter
+from geolocator import AddressToCoordinateConverter
 
 
 app = Flask(__name__)
